@@ -1248,6 +1248,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj">
+      <Project>{10a9ecd3-ae1e-494d-9a27-8a32dd581759}</Project>
+      <Name>AurelienRibon.Ui.SyntaxHighlightBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XMLViewer\XMLViewer.csproj">
       <Project>{11D17F23-E54C-47D3-A04C-1338F456AC87}</Project>
       <Name>XMLViewer</Name>
