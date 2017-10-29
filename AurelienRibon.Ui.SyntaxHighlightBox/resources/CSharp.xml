@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Syntax name="CSharp">
+	<HighlightWordsRule name="Reserved language words">
+		<Words>
+			this base as is new sizeof typeof true false stackalloc
+			else if switch case default do for foreach in while lock
+			break continue goto return
+			checked unchecked fixed unsafe
+			class interface delegate object string void
+			explicit implicit operator
+			params ref out 
+			abstract const event extern override readonly sealed static virtual volatile
+			public protected private internal namespace using
+			null value
+			abs access after alias all and architecture array
+			assert attribute begin block body buffer bus case
+			component configuration constant disconnect downto
+			else elsif end entity exit file for function generate
+			generic group guarded if impure in inertial inout is
+			label library linkage literal loop map mod nand new next
+			nor not null of on open or others out package port
+			postponed procedure process pure range record register
+			reject report return rol ror select severity signal shared sla
+			sli sra srl subtype then to transport type unaffected
+			units until use variable wait when while with xnor xor
+		</Words>
+		<IgnoreCase>true</IgnoreCase>
+		<Foreground>#0080FF</Foreground>
+		<FontWeight>Bold</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</HighlightWordsRule>
+
+	<HighlightWordsRule name="Standard packages">
+		<Words>
+			DeltaEngine System Core Graphics Rendering2D Rendering3D Content Multimedia Physics2D Physics3D Platforms Scenes Samples Microsoft NUnit Framework Sprites Shapes Cameras Mocks Models Particles UserInterfaces Tests LogoApp Graphs Fonts Profiling Networking Tcp Logging Input Xml Json
+		</Words>
+		<IgnoreCase>true</IgnoreCase>
+		<Foreground>#C00080</Foreground>
+		<FontWeight>Normal</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</HighlightWordsRule>
+
+	<HighlightWordsRule name="Standard types">
+		<Words>
+			bool Boolean byte char int float double short long ushort ulong uint decimal enum sbyte
+			struct var unsigned signed Point Color Vector2D Vector3D Matrix BoundingBox BoundingSphere
+			EulerAngles Lerp Plane Quaternion Range RangeGraph Ray Rectangle Size TimeRangeGraph
+		</Words>
+		<IgnoreCase>true</IgnoreCase>
+		<Foreground>#8000FF</Foreground>
+		<FontWeight>Normal</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</HighlightWordsRule>
+
+	<HighlightWordsRule name="Standard functions">
+		<Words>
+			get set add remove
+			yield partial global where select group by into from ascending descending orderby
+			let join on equals dynamic
+			try throw catch finally
+			Test CloseAfterFirstFrame ApproveFirstFrameScreenshot
+			Category SetUp TestFixture TearDown FixtureSetUp FixtureTearDown
+			now readline read writeline write endfile resolved to_bit
+			to_bitvector to_stdulogic to_stdlogicvector to_stdulogicvector
+			to_x01 to_x01z to_UX01 rising_edge falling_edge is_x shift_left
+			shift_right rotate_left rotate_right resize to_integer to_unsigned
+			to_signed std_match to_01
+		</Words>
+		<IgnoreCase>true</IgnoreCase>
+		<Foreground>#0080FF</Foreground>
+		<FontWeight>Normal</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</HighlightWordsRule>
+
+	<HighlightLineRule name="Comments">
+		<LineStart>//</LineStart>
+		<IgnoreCase>false</IgnoreCase>
+		<Foreground>#009933</Foreground>
+		<FontWeight>Normal</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</HighlightLineRule>
+
+	<AdvancedHighlightRule name="Numbers">
+		<Expression>\b([0-9]+[\.]?[0-9]*[f]?)\b</Expression>
+		<IgnoreCase>false</IgnoreCase>
+		<Foreground>#F68A1B</Foreground>
+		<FontWeight>Normal</FontWeight>
+		<FontStyle>Normal</FontStyle>
+	</AdvancedHighlightRule>
+</Syntax>

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ArcGISWPFSDK.EditToolsSelectionOnly"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+    <Grid x:Name="LayoutRoot" Background="White">
+
+        <esri:Map x:Name="MyMap" Extent="-13054165,3850112,-13027133,3863559" >
+            <esri:ArcGISTiledMapServiceLayer ID="BaseLayer" 
+				Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            <esri:ArcGISDynamicMapServiceLayer ID="HomelandSecurityMapServiceLayer"
+                Url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/operations/MapServer" 
+                                               VisibleLayers="2" />
+            <esri:FeatureLayer ID="Threat Areas"  
+                  Url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/operations/FeatureServer/2"        
+                               AutoSave="False" 
+                               Mode="SelectionOnly" 
+                               SelectionColor="#FFFFFF00" 
+                               DisableClientCaching="True" 
+                               EndSaveEdits="FeatureLayer_EndSaveEdits"                               
+                               />
+        </esri:Map>
+
+    </Grid>
+</UserControl>

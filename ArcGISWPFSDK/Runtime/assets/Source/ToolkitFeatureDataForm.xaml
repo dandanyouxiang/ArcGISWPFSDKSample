@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ArcGISWPFSDK.ToolkitFeatureDataForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+	<Grid x:Name="LayoutRoot">
+
+		<esri:Map x:Name="MyMap" Loaded="MyMap_Loaded" WrapAround="True">
+			<esri:ArcGISTiledMapServiceLayer ID="BaseLayer" 
+				Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			<esri:FeatureLayer ID="Point Layer"                               
+                               MouseLeftButtonUp="FeatureLayer_MouseLeftButtonUp"
+                               Url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0"
+                               DisableClientCaching="True" 
+                               Mode="OnDemand"
+                               SelectionColor="#FFFFFF00"
+                               OutFields="*" />
+		</esri:Map>
+
+		<Border x:Name="FeatureDataFormBorder" Visibility="Collapsed" 
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,10,0" Width="300" Height="300" >
+			<Border.Effect>
+				<DropShadowEffect Color="Black" Direction="-45" BlurRadius="20" Opacity=".75" />
+			</Border.Effect>
+			<esri:FeatureDataForm x:Name="MyFeatureDataForm"  Foreground="Black"
+                                         IsReadOnly="False" LabelPosition="Left" />
+
+		</Border>
+
+		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,0" >
+			<Rectangle Fill="#775C90B2" Stroke="Gray"  RadiusX="10" RadiusY="10" Margin="0,0,0,5" >
+				<Rectangle.Effect>
+					<DropShadowEffect/>
+				</Rectangle.Effect>
+			</Rectangle>
+			<Rectangle Fill="#FFFFFFFF" Stroke="DarkGray" RadiusX="5" RadiusY="5" Margin="10,10,10,15" />
+			<TextBlock x:Name="ResponseTextBlock" Text="Click on a feature in the map to view the attributes in the data form.  Edit values in the data form and click ok to save to the database." 
+                       Width="200" TextAlignment="Left" Margin="30,20,20,30" TextWrapping="Wrap" Foreground="Black" />
+		</Grid>
+
+	</Grid>
+</UserControl>

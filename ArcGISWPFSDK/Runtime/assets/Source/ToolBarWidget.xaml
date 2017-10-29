@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ArcGISWPFSDK.ToolBarWidget"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+    <Grid x:Name="LayoutRoot" Background="White">
+
+        <Grid.Resources>
+            <esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Fill="#33FF0000" BorderBrush="Red" 
+                                          BorderThickness="2" />
+        </Grid.Resources>
+
+		<esri:Map x:Name="MyMap" Extent="-4205388.929,3130713.621,8347293.815,9189018.320" 
+                  ExtentChanged="MyMap_ExtentChanged" WrapAround="True">
+			<esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+                    Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+		</esri:Map>
+
+		<Grid Height="110" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" >
+            <Rectangle Fill="#775C90B2" RadiusX="10" RadiusY="10" Margin="0,4,0,0" >
+                <Rectangle.Effect>
+                    <DropShadowEffect/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Rectangle Fill="#66FFFFFF" Stroke="DarkGray" RadiusX="5" RadiusY="5" Margin="10,10,10,15" />
+            <StackPanel Orientation="Vertical">
+                <esri:Toolbar x:Name="MyToolbar" MaxItemHeight="80" MaxItemWidth="80"
+                    VerticalAlignment="Top" HorizontalAlignment="Center"
+                    Loaded="MyToolbar_Loaded"
+                    ToolbarItemClicked="MyToolbar_ToolbarItemClicked" 
+                    ToolbarIndexChanged="MyToolbar_ToolbarIndexChanged"
+                    Width="450" Height="80">
+                    <esri:Toolbar.Items>
+                        <esri:ToolbarItemCollection>
+                            <esri:ToolbarItem Text="Zoom In">
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_zoomin.png" Stretch="UniformToFill" Margin="5" />
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                            <esri:ToolbarItem Text="Zoom Out">
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_zoomout.png" Stretch="UniformToFill" Margin="5" />
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                            <esri:ToolbarItem Text="Pan">
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_pan.png" Stretch="UniformToFill" Margin="5" />
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                            <esri:ToolbarItem Text="Previous Extent" >
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_previous.png" IsHitTestVisible="False" Opacity="0.3" Stretch="UniformToFill" Margin="5"/>
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                            <esri:ToolbarItem Text="Next Extent">
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_next.png" IsHitTestVisible="False" Opacity="0.3" Stretch="UniformToFill" Margin="5"/>
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                            <esri:ToolbarItem Text="Full Extent">
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_globe.png" Stretch="UniformToFill" Margin="5" />
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                            <esri:ToolbarItem Text="Full Screen">
+                                <esri:ToolbarItem.Content>
+                                    <Image Source="/ArcGISWPFSDK;component/runtime/Assets/images/i_widget.png" Stretch="UniformToFill" Margin="5" />
+                                </esri:ToolbarItem.Content>
+                            </esri:ToolbarItem>
+                        </esri:ToolbarItemCollection>
+                    </esri:Toolbar.Items>
+                </esri:Toolbar>
+                <TextBlock x:Name="StatusTextBlock" Text="" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>
+

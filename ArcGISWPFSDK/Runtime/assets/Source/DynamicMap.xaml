@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="ArcGISWPFSDK.DynamicMap"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+    <Grid x:Name="LayoutRoot" Background="White" >
+
+        <esri:Map x:Name="MyMap" >
+            <esri:ArcGISDynamicMapServiceLayer ID="MyLayer"
+                 Url="https://gis.icao.int/arcgis/rest/services/WGS84/MapServer"
+                VisibleLayers="0,1,2,3" />
+        </esri:Map>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="ArcGISWPFSDK.TemporalRendererFeatureLayer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Grid.Loaded">
+                <BeginStoryboard>
+                    <!--Animation for rotating the brush-->
+                    <BeginStoryboard.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Grid.Background).(ImageBrush.Transform).(RotateTransform.Angle)"
+                                Storyboard.TargetName="dummy"
+                                From="360" To="0"
+                                Duration="0:0:05"
+                                RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard.Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        <Grid.Resources>
+            <!--Rotating image brush-->
+            <ImageBrush x:Key="hurricaneBrush" Stretch="Fill" AlignmentX="Center"
+                        AlignmentY="Center" ImageSource="/Assets/images/hurr_100_icon.png">
+                <ImageBrush.Transform>
+                    <RotateTransform CenterX="50" CenterY="50" />
+                </ImageBrush.Transform>
+            </ImageBrush>
+
+            <!--Hurricane symbol - latest observation-->
+            <esri:MarkerSymbol x:Key="latest">
+                <esri:MarkerSymbol.ControlTemplate>
+                    <ControlTemplate>
+                        <Grid Margin="-200" Width="{Binding Attributes[WIND_KTS]}" Height="{Binding Attributes[WIND_KTS]}" 
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            <Viewbox>
+                                <Ellipse Fill="{StaticResource hurricaneBrush}" Width="100" Height="100" />
+                            </Viewbox>
+
+                            <Grid Margin="0,0,-50,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="#77ffffff">
+                                <Grid.Effect>
+                                    <BlurEffect />
+                                </Grid.Effect>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Attributes[NAME]}" Foreground="White" />
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <TextBlock Text="{Binding Attributes[WIND_KTS]}" Foreground="White"/>
+                                        <TextBlock Text="mph" Foreground="White"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <StackPanel Margin="0,0,-50,0" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Attributes[BTID]}" />
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding Attributes[WIND_KTS]}"/>
+                                    <TextBlock Text="mph"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </esri:MarkerSymbol.ControlTemplate>
+            </esri:MarkerSymbol>
+
+            <!--Previous observation symbol-->
+            <esri:SimpleMarkerSymbol x:Key="observation" Color="#55ffffff">
+                <esri:SimpleMarkerSymbol.ControlTemplate>
+                    <ControlTemplate>
+                        <Grid >
+                            <Grid Margin="-400" Width="{Binding Attributes[WIND_KTS]}" Height="{Binding Attributes[WIND_KTS]}" 
+                                  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Ellipse Stroke="{Binding Symbol.Color}" StrokeThickness="2" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </esri:SimpleMarkerSymbol.ControlTemplate>
+            </esri:SimpleMarkerSymbol>
+
+            <!--track line-->
+            <esri:SimpleLineSymbol x:Key="trackline1" Color="Green" Width="3" Style="Solid" />
+            <esri:SimpleLineSymbol x:Key="trackline2" Color="Red" Width="2" Style="Solid" />
+            <esri:SimpleLineSymbol x:Key="trackline3" Color="Black" Width="1" Style="Solid" />
+
+            <!--last observation-->
+            <esri:TextSymbol x:Key="current" FontSize="5" Text="X" Foreground="LimeGreen"/>
+
+            <esri:TemporalRenderer x:Key="temporalRenderer" TrackIdField="BTID">
+
+                <!--LatestObservationRenderer-->
+                <esri:TemporalRenderer.LatestObservationRenderer>
+                    <esri:SimpleRenderer Symbol="{StaticResource trackline1}"  />
+                </esri:TemporalRenderer.LatestObservationRenderer>
+
+                <!--ObservationRenderer-->
+                <esri:TemporalRenderer.ObservationRenderer>
+                    <esri:SimpleRenderer Symbol="{StaticResource trackline2}"  />
+                </esri:TemporalRenderer.ObservationRenderer>
+
+                <!--TrackRenderer-->
+                <esri:TemporalRenderer.TrackRenderer>
+                    <esri:SimpleRenderer Symbol="{StaticResource trackline3}" />
+                </esri:TemporalRenderer.TrackRenderer>
+
+                <!--SymbolAger-->
+                <esri:TemporalRenderer.SymbolAger>
+                    <esri:RampInterpolator>
+
+                        <esri:RampInterpolator.OpacityRange>
+                            <esri:OpacityRange From="1" To=".1" />
+                        </esri:RampInterpolator.OpacityRange>
+
+                    </esri:RampInterpolator>
+                </esri:TemporalRenderer.SymbolAger>
+            </esri:TemporalRenderer>
+        </Grid.Resources>
+
+        <!--ESRI Map-->
+        <esri:Map x:Name="esriMap" 
+            Extent="-123.784126680131,-32.0219417946709,56.2158633198686,89.0125342398119"      
+            TimeExtent="{Binding ElementName=timeSlider, Path=Value}">
+            <esri:Map.Layers>
+
+                <!--Base Layer-->
+                <esri:ArcGISTiledMapServiceLayer Url="http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
+
+                <!--Hurricane Feature Data-->
+                <esri:FeatureLayer ID="hurricane" 
+                                   Url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Hurricanes/NOAA_Tracks_1851_2007/MapServer/0"
+                                   OutFields="*"
+                                   Mode="OnDemand"
+                                   DisableClientCaching="True"
+                                   Initialized="FeatureLayer_Initialized" 
+                                   Renderer="{StaticResource temporalRenderer}"/>
+
+            </esri:Map.Layers>
+        </esri:Map>
+
+
+        <Grid VerticalAlignment="Bottom" Margin="50,0,100,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Start Time-->
+            <StackPanel Orientation="Horizontal">
+            <TextBlock 
+                Text="{Binding ElementName=timeSlider, Path=Value.Start, Mode=OneWay}" 
+                HorizontalAlignment="Left"                 
+            />
+
+            <!--End Time-->
+            <TextBlock Grid.Column="1"
+                Text="{Binding ElementName=timeSlider, Path=Value.End, Mode=OneWay}" 
+                HorizontalAlignment="Right" 
+            />
+            </StackPanel>
+
+            <!--Time Slider-->
+            <esri:TimeSlider x:Name="timeSlider" Grid.ColumnSpan="2" Grid.Row="1"
+                Loop="True" PlaySpeed="0:0:0.15"                                  
+                MinimumValue="2000/06/25 07:00:00 UTC"
+                MaximumValue="2000/08/07 01:00:00 UTC"                                
+                Value="2000/06/25 07:00:00 UTC, 2000/06/25 13:00:00 UTC"
+                Height="20" 
+                TimeMode="TimeExtent" />
+
+        </Grid>
+        <Grid Visibility="Collapsed" x:Name="dummy" Background="{StaticResource hurricaneBrush}" />
+
+    </Grid>
+</UserControl>
+

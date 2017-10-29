@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ArcGISWPFSDK.UsingImageServer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:esri="clr-namespace:ESRI.ArcGIS.Client;assembly=ESRI.ArcGIS.Client">
+    <Grid x:Name="LayoutRoot" Background="White">
+
+        <esri:Map x:Name="MyMap" Background="White" Extent="-20037348.0467277, -9197943.6247422, 20037267.8926107, 11197822.8029574" >
+            <esri:Map.Layers>
+                <esri:ArcGISImageServiceLayer ID="ImageServiceLayer" 
+                    Url="http://serverapps.esri.com/ArcGIS/rest/services/BlueMarble12Month/ImageServer" />
+            </esri:Map.Layers>
+        </esri:Map>
+
+    </Grid>
+</UserControl>
